@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as esbuild from "esbuild-wasm";
+import {unpkgPathPlugin} from "../plugins/unpkg-path.plugins";
+
 
 const InputBox = () => {
     const [input, setInput] = useState('');
@@ -22,12 +24,20 @@ const InputBox = () => {
        if(!ref.current){
            return;
        }
-       let result = await ref.current.transform(input, {
-           loader: 'jsx',
-           target: 'es2015'
-       });
+  
 
-       setCode(result.code);
+    let result = await ref.current.build({
+        entryPoints: ['index.js'],
+        bundle: true,
+        write: false,
+        plugins:[unpkgPathPlugin()],
+        define:{
+            'process.env.NODE_ENV': '"production"',
+            global: 'window'
+        }
+    })
+        console.log(result)
+       setCode(result.outputFiles[0].text);
     }
     return (
         <div>
