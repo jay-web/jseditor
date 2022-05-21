@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as esbuild from "esbuild-wasm";
 import {unpkgPathPlugin} from "../plugins/unpkg-path.plugins";
+import { unpkgLoadPlugin } from "../plugins/unpkg-load-plugin";
 
 
 
@@ -32,7 +33,7 @@ const InputBox = () => {
         entryPoints: ['index.js'],
         bundle: true,
         write: false,
-        plugins:[unpkgPathPlugin()],
+        plugins:[unpkgPathPlugin(), unpkgLoadPlugin(input)],
         define:{
             'process.env.NODE_ENV': '"production"',
             global: 'window'
