@@ -6,7 +6,7 @@ export const unpkgPathPlugin = () => {
     name: "unpkg-path-plugin",
     setup(build: esbuild.PluginBuild) {
       build.onResolve({ filter: /.*/ }, async (args: any) => {
-        console.log("onResole", args);
+       
         if (args.path == "index.js") {
           return { path: args.path, namespace: "a" };
         }
