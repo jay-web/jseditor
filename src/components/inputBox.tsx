@@ -29,7 +29,7 @@ const InputBox = () => {
            return;
        }
   
-
+    iframeRef.current.srcdoc = html;
     let result = await ref.current.build({
         entryPoints: ['index.js'],
         bundle: true,
