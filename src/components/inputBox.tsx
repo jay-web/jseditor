@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import * as esbuild from "esbuild-wasm";
 import {unpkgPathPlugin} from "../plugins/unpkg-path.plugins";
 import { unpkgLoadPlugin } from "../plugins/unpkg-load-plugin";
+import CodeEditor from "./code-editor";
 
 
 
@@ -70,6 +71,7 @@ const InputBox = () => {
 
     return (
         <div>
+            <CodeEditor />
             <textarea value={input} onChange={(e) => setInput(e.target.value)}></textarea>
             <button onClick={onSubmit}>Submit</button>
             
