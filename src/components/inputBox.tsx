@@ -11,6 +11,7 @@ const InputBox = () => {
     const [code, setCode] = useState('');
 
     const ref = useRef<any>();
+    const iframeRef = useRef<any>();
 
     const startService = async () => {
         ref.current = await esbuild.startService({
@@ -40,13 +41,32 @@ const InputBox = () => {
         }
     })
         console.log(result)
-       setCode(result.outputFiles[0].text);
+    //    setCode(result.outputFiles[0].text);
+    iframeRef.current.contentWindow.postMessage(result.outputFiles[0].text, "*");
     }
+
+    const html = `
+        <html>
+            <head></head>
+            <body>
+                <div id="root">
+                    <script>
+                        window.addEventListener("message", (event) => {
+                            eval(event.data);
+                        }, false);
+                    </script>
+                </div>
+            </body>
+        </html>
+    
+    `;
+
     return (
         <div>
             <textarea value={input} onChange={(e) => setInput(e.target.value)}></textarea>
             <button onClick={onSubmit}>Submit</button>
-            <div>{code}</div>
+            
+            <iframe ref={iframeRef} srcDoc={html} sandbox="allow-scripts" />
         </div>
     )
 }
