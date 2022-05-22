@@ -49,13 +49,20 @@ const InputBox = () => {
         <html>
             <head></head>
             <body>
-                <div id="root">
+                <div id="root"></div>
                     <script>
                         window.addEventListener("message", (event) => {
-                            eval(event.data);
+                            try{
+                                eval(event.data);
+                            }catch(err){
+                                let root = document.querySelector("#root");
+                                root.innerHTML = '<div style="color:red;"><h4> '+ err + '</h4></div>'
+                                console.error(err);
+                            } 
+                            
                         }, false);
                     </script>
-                </div>
+                
             </body>
         </html>
     
