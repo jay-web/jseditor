@@ -71,8 +71,12 @@ const InputBox = () => {
 
     return (
         <div>
-            <CodeEditor />
-            <textarea value={input} onChange={(e) => setInput(e.target.value)}></textarea>
+            <CodeEditor 
+                initialValue="let code = 'my code';"
+                onChange={(value) => setInput(value || "")}
+                
+                />
+            {/* <textarea value={input} onChange={(e) => setInput(e.target.value)}></textarea> */}
             <button onClick={onSubmit}>Submit</button>
             
             <iframe ref={iframeRef} srcDoc={html} sandbox="allow-scripts" />
