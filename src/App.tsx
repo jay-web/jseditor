@@ -3,13 +3,14 @@ import React, {useEffect,useRef} from 'react';
 
 import './App.css';
 
-import InputBox from "./components/inputBox";
+import Documentor from "./components/documentor";
 
 function App() {
   
   return (
     <div >
-      <InputBox />
+      <Documentor />
+      {/* <Documentor /> */}
     </div>
   );
 }

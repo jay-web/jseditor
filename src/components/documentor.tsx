@@ -6,7 +6,7 @@ import bundler from "../bundler";
 
 
 
-const InputBox = () => {
+const Documentor = () => {
     const [input, setInput] = useState('');
     const [code, setCode] = useState('');
 
@@ -36,4 +36,4 @@ const InputBox = () => {
     )
 }
 
-export default InputBox;
+export default Documentor;
