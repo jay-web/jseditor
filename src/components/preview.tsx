@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 
 interface PreviewCodeProps {
-    code: string;
+  code: string;
 }
 
 const CodeHtml = `
@@ -27,15 +27,24 @@ const CodeHtml = `
 
 `;
 
-const PreviewCode: React.FC<PreviewCodeProps> = ({code}) => {
-    const iframeRef = useRef<any>();
+const PreviewCode: React.FC<PreviewCodeProps> = ({ code }) => {
+  const iframeRef = useRef<any>();
 
-    useEffect(() => {
-        // iframeRef.current.srcdoc = CodeHtml;
-        iframeRef.current.contentWindow.postMessage(code, "*");
-    },  [code]);
+  useEffect(() => {
+    // iframeRef.current.srcdoc = CodeHtml;
+    iframeRef.current.contentWindow.postMessage(code, "*");
+  }, [code]);
 
-    return   <iframe ref={iframeRef} srcDoc={CodeHtml} sandbox="allow-scripts" />
-}
+  return (
+    <div className="relative previewBox grow h-full">
+      <iframe
+        ref={iframeRef}
+        srcDoc={CodeHtml}
+        sandbox="allow-scripts"
+        className="bg-preview-light w-full h-full"
+      />
+    </div>
+  );
+};
 
 export default PreviewCode;
