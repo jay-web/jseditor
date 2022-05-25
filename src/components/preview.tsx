@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef} from "react";
 
 interface PreviewCodeProps {
   code: string;
+  err: string;
 }
 
 const CodeHtml = `
@@ -10,13 +11,20 @@ const CodeHtml = `
     <body>
         <div id="root"></div>
             <script>
+                const handleError = (err) => {
+                  let root = document.querySelector("#root");
+                  root.innerHTML = '<div style="color:red;"><h4> '+ err + '</h4></div>'
+                  console.error(err);
+                }
+                window.addEventListener('error', (event) => {
+                  event.preventDefault();
+                  handleError(event.error);
+                })
                 window.addEventListener("message", (event) => {
                     try{
                         eval(event.data);
                     }catch(err){
-                        let root = document.querySelector("#root");
-                        root.innerHTML = '<div style="color:red;"><h4> '+ err + '</h4></div>'
-                        console.error(err);
+                       handleError(err);
                     } 
                     
                 }, false);
@@ -27,8 +35,9 @@ const CodeHtml = `
 
 `;
 
-const PreviewCode: React.FC<PreviewCodeProps> = ({ code }) => {
+const PreviewCode: React.FC<PreviewCodeProps> = ({ code, err }) => {
   const iframeRef = useRef<any>();
+  
 
   useEffect(() => {
     iframeRef.current.srcdoc = CodeHtml;
@@ -46,6 +55,7 @@ const PreviewCode: React.FC<PreviewCodeProps> = ({ code }) => {
         sandbox="allow-scripts"
         className="bg-preview-light w-full h-full"
       />
+     { err ?  <div className="absolute top-1 left-1 text-red-500">{err}</div> : null}
     </div>
   );
 };

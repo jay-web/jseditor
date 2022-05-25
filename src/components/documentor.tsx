@@ -5,14 +5,18 @@ import PreviewCode from "./preview";
 import bundler from "../bundler";
 import Resizable from "./resizeable";
 
+
+
 const Documentor = () => {
   const [input, setInput] = useState("");
   const [code, setCode] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
      let timer = setTimeout(async () => {
       let output = await bundler(input);
-      setCode(output);
+      setCode(output.code);
+      setError(output.error);
       }, 1100);
 
       return () => {
@@ -39,7 +43,7 @@ const Documentor = () => {
 
         {/* <button onClick={onSubmit}>Submit</button> */}
 
-        <PreviewCode code={code} />
+        <PreviewCode code={code} err={error}/>
       </div>
 
     </Resizable>
