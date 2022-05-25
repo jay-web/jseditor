@@ -61,3 +61,28 @@ code {
 .editor-wrapper:hover > button {
     opacity: 1;
 } 
+
+.w-md-editor{
+  width: 100vw;
+}
+.wmde-markdown{
+  width: 100vw;
+  cursor: pointer;
+  /* background-color: white !important; */
+  color: white !important;
+  
+}
+
+.w-md-editor-bar svg{
+display: none !important;
+}
+.w-md-editor-bar{
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=') !important;
+  position: relative !important;
+  height: 1rem !important;
+  cursor: row-resize !important;
+  background-position: 50% !important;
+  width: 100% !important;
+  background-color: #37414b !important;
+  background-repeat: no-repeat !important;
+  }
