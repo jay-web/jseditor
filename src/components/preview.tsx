@@ -31,8 +31,11 @@ const PreviewCode: React.FC<PreviewCodeProps> = ({ code }) => {
   const iframeRef = useRef<any>();
 
   useEffect(() => {
-    // iframeRef.current.srcdoc = CodeHtml;
-    iframeRef.current.contentWindow.postMessage(code, "*");
+    iframeRef.current.srcdoc = CodeHtml;
+    setTimeout(() => {
+      iframeRef.current.contentWindow.postMessage(code, "*");
+    }, 50);
+  
   }, [code]);
 
   return (

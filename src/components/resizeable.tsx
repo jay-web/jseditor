@@ -1,5 +1,5 @@
 import { ResizableBox , ResizeCallbackData, ResizableBoxProps } from "react-resizable";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface ResizableProps {
   direction: "horizontal" | "vertical";
@@ -28,8 +28,8 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
   if(direction == "horizontal"){
     resizableProps = {
         className:"flex flex-row",
-        height: Infinity,
-        width: window.innerWidth * 0.75,
+        height: sizes.height,
+        width: sizes.width,
         onResize: onResizeDimensions,
         resizeHandles: ["e"],
         maxConstraints: [window.innerWidth * 0.75,  Infinity],
@@ -40,29 +40,14 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
     
     resizableProps = {
         className:"h-full",
-        height: 300,
-        width:Infinity,
+        height: sizes.height,
+        width: sizes.width,
         onResize: onResizeDimensions,
         resizeHandles: ["s"],
         maxConstraints: [Infinity,  window.innerHeight * 0.9],
         minConstraints:[Infinity, 50]
     }
   }
-
-  useEffect(() => {
-      if(direction == "horizontal"){
-        setSizes({height: Infinity, width: window.innerWidth * 0.75});
-      }
-      else{
-        setSizes({height: 300, width: Infinity});
-      }
-  
-     
-  }, [])
-
- 
-
- 
 
   return (
       

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import CodeEditor from "./code-editor";
 import PreviewCode from "./preview";
@@ -9,11 +9,22 @@ const Documentor = () => {
   const [input, setInput] = useState("");
   const [code, setCode] = useState("");
 
-  const onSubmit = async () => {
-    let output = await bundler(input);
+  useEffect(() => {
+     let timer = setTimeout(async () => {
+      let output = await bundler(input);
+      setCode(output);
+      }, 1100);
 
-    setCode(output);
-  };
+      return () => {
+        clearTimeout(timer);
+      }
+  }, [input]);
+
+  // const onSubmit = async () => {
+  //   let output = await bundler(input);
+
+  //   setCode(output);
+  // };
 
   return (
     <Resizable direction="vertical">
