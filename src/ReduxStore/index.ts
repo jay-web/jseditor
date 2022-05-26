@@ -1,1 +1,2 @@
-export default "hello";
+export * from "./store";
+export * from "./reducers";
