@@ -10,8 +10,9 @@ function App() {
   
   return (
     <div >
-      {/* <Documentor /> */}
+     
       <MarkDownEditor />
+      <Documentor />
     </div>
   );
 }
