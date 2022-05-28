@@ -73,12 +73,14 @@ const cellReducer = (state: CellState = initialState, action: Action): CellState
                 content: ""
             }
             let tOrder = [...state.order];
+            let tData = {...state.data};
             let mov = tOrder.findIndex((id) => id == action.payload.id);
             tOrder.splice(mov, 0, newType.id);
-            
+            tData[newType.id] = newType;
             return {
                 ...state,
-                order: tOrder
+                order: tOrder,
+                data: tData
             }
         default:
             return state;
