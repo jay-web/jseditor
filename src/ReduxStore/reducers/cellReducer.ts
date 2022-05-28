@@ -20,16 +20,66 @@ const initialState:CellState = {
 
 }
 
-const cellReducer = (state: CellState = initialState, action: Action): CellState =>  {
+function createId() {
+    return Math.random().toString(36).slice(2, 5);
+}
+
+const cellReducer = (state: CellState = initialState, action: Action): CellState | null =>  {
     switch(action.type){
         case ActionTypes.UPDATE_CELL:
-            return state;
+            const{ id, content } = action.payload;
+            return {
+                ...state,
+                data:{
+                    ...state.data, [id]: {
+                        ...state.data[id], content: content
+                    }
+                }
+            }
         case ActionTypes.DELETE_CELL:
-            return state;
+            let temp = {...state.data}
+            let tempOrder = [...state.order];
+            let targetIndex = tempOrder.findIndex((id) => id == action.payload);
+            tempOrder.splice(targetIndex, 1);
+            delete temp[action.payload];
+            return {
+                ...state,
+                order: tempOrder,
+                data: temp
+            }
         case ActionTypes.MOVE_CELL:
-            return state;
+            let tempOrdering = [...state.order];
+            let movingIndex = tempOrdering.findIndex((id) => id == action.payload.id);
+            if(movingIndex == 0 || movingIndex > tempOrdering.length - 1){
+                return null;
+            }
+            if(action.payload.direction == "up"){
+                let t = tempOrdering[movingIndex - 1];
+                tempOrdering[movingIndex - 1] = tempOrdering[movingIndex];
+                tempOrdering[movingIndex] = t;
+            }else{
+                let t = tempOrdering[movingIndex + 1];
+                tempOrdering[movingIndex + 1] = tempOrdering[movingIndex];
+                tempOrdering[movingIndex] = t;
+            }
+            return {
+                ...state,
+                order: tempOrdering
+            };
         case ActionTypes.INSERT_CELL_BEFORE:
-            return state;
+            let newType: Cell = {
+                id: createId(),
+                type: action.payload.type,
+                content: ""
+            }
+            let tOrder = [...state.order];
+            let mov = tOrder.findIndex((id) => id == action.payload.id);
+            tOrder.splice(mov, 0, newType.id);
+            
+            return {
+                ...state,
+                order: tOrder
+            }
         default:
             return state;
     }
