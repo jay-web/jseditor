@@ -24,7 +24,7 @@ function createId() {
     return Math.random().toString(36).slice(2, 5);
 }
 
-const cellReducer = (state: CellState = initialState, action: Action): CellState | null =>  {
+const cellReducer = (state: CellState = initialState, action: Action): CellState =>  {
     switch(action.type){
         case ActionTypes.UPDATE_CELL:
             const{ id, content } = action.payload;
@@ -51,7 +51,7 @@ const cellReducer = (state: CellState = initialState, action: Action): CellState
             let tempOrdering = [...state.order];
             let movingIndex = tempOrdering.findIndex((id) => id == action.payload.id);
             if(movingIndex == 0 || movingIndex > tempOrdering.length - 1){
-                return null;
+                return state;
             }
             if(action.payload.direction == "up"){
                 let t = tempOrdering[movingIndex - 1];
