@@ -4,17 +4,23 @@ import CodeEditor from "./code-editor";
 import PreviewCode from "./preview";
 import bundler from "../bundler";
 import Resizable from "./resizeable";
+import Cell from "../ReduxStore/cell";
+import {useActions} from "../hooks/useAction";
+
+interface DocumentorProps {
+  cell: Cell
+}
 
 
-
-const Documentor = () => {
-  const [input, setInput] = useState("");
+const Documentor: React.FC<DocumentorProps> = ({cell}) => {
+ 
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const {updateCell} = useActions();
 
   useEffect(() => {
      let timer = setTimeout(async () => {
-      let output = await bundler(input);
+      let output = await bundler(cell.content);
       setCode(output.code);
       setError(output.error);
       }, 1100);
@@ -22,7 +28,7 @@ const Documentor = () => {
       return () => {
         clearTimeout(timer);
       }
-  }, [input]);
+  }, [cell.content]);
 
   // const onSubmit = async () => {
   //   let output = await bundler(input);
@@ -36,7 +42,7 @@ const Documentor = () => {
         <Resizable direction="horizontal">
           <CodeEditor
             initialValue="let code = 'my code';"
-            onChange={(value) => setInput(value || "")}
+            onChange={(value) => updateCell(cell.id, value || "")}
           />
           </Resizable>
         

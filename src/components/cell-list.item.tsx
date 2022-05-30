@@ -10,7 +10,7 @@ interface CellListItemProps {
 const CellListItem:React.FC<CellListItemProps> = ({cell}) => {
     let child:JSX.Element;
     if(cell.type == "code"){
-        child = <Documentor />
+        child = <Documentor cell={cell}/>
     }else{
         child = <MarkDown />
     }
