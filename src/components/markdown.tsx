@@ -27,7 +27,7 @@ const MarkDownEditor:React.FC<MarkDownEditorProps> = ({cell}) =>  {
       />
       : null }
       <div onClick={() => setShow(!show)} >
-      <MDEditor.Markdown source={cell.content || "Edit markdown"} />
+      <MDEditor.Markdown source={cell.content || `Markdown ${cell.id}`} />
       </div>
       
     </div>
