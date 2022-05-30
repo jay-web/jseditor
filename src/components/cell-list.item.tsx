@@ -12,7 +12,7 @@ const CellListItem:React.FC<CellListItemProps> = ({cell}) => {
     if(cell.type == "code"){
         child = <Documentor cell={cell}/>
     }else{
-        child = <MarkDown />
+        child = <MarkDown cell={cell}/>
     }
     return (
         <div>{child}</div>

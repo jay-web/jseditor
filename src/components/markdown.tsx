@@ -1,25 +1,33 @@
 import React from "react";
 import MDEditor from '@uiw/react-md-editor';
+import { useActions } from "../hooks/useAction";
+import  Cell from "../ReduxStore/cell";
 
-const MarkDownEditor = () =>  {
-  const [value, setValue] = React.useState("Hello world!!!" || "");
+interface MarkDownEditorProps{
+  cell: Cell
+}
+
+const MarkDownEditor:React.FC<MarkDownEditorProps> = ({cell}) =>  {
+
+  const {updateCell} = useActions();
   const [show, setShow] = React.useState(false);
+
   const onChange = (val:string | undefined) => {
       if(val){
-        setValue(val);
+        updateCell(cell.id, val);
       }
      
   }
   return (
     <div className="container">
      {show ? <MDEditor
-        value={value}
+        value={cell.content}
         onChange={onChange}
         
       />
       : null }
       <div onClick={() => setShow(!show)} >
-      <MDEditor.Markdown source={value} />
+      <MDEditor.Markdown source={cell.content || "Edit markdown"} />
       </div>
       
     </div>
