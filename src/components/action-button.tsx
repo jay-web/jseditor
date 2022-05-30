@@ -6,7 +6,7 @@ interface ActionButtonProps {
     color?:string
 }
 const ActionButton: React.FC<ActionButtonProps> = ({icon, onClick, color="bg-blue-500"}) => {
-    return  <button onClick={onClick} className={`py-1 px-2 ${color} text-white hover:text-black`} >
+    return  <button onClick={onClick} className={`py-0 px-2 ${color} text-white hover:text-black`} >
         <span>
             <i className={`fas ${icon}`} />
         </span>
