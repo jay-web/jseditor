@@ -48,7 +48,7 @@ const PreviewCode: React.FC<PreviewCodeProps> = ({ code, err }) => {
   }, [code]);
 
   return (
-    <div className="relative previewBox grow h-full">
+    <div className="relative previewBox bg-white grow h-full">
       <iframe
         ref={iframeRef}
         srcDoc={CodeHtml}

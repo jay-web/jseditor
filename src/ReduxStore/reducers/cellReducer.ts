@@ -79,7 +79,7 @@ const cellReducer = (
         ...state,
         order: tempOrdering,
       };
-    case ActionTypes.INSERT_CELL_BEFORE:
+    case ActionTypes.INSERT_CELL_AFTER:
       let newType: Cell = {
         id: createId(),
         type: action.payload.type,
@@ -87,8 +87,13 @@ const cellReducer = (
       };
       let tOrder = [...state.order];
       let tData = { ...state.data };
-      let mov = tOrder.findIndex((id) => id == action.payload.id);
-      tOrder.splice(mov, 0, newType.id);
+      if(action.payload.id !== null){
+        let mov = tOrder.findIndex((id) => id == action.payload.id);
+        tOrder.splice(mov + 1, 0, newType.id);
+      }else{
+        tOrder.unshift(newType.id);
+      }
+      
       tData[newType.id] = newType;
       return {
         ...state,
